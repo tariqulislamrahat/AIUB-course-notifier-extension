@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIUB Course Notifier - Monitor Course Availability</title>
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      background-color: #f0f4f8;
+      line-height: 1.6;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #1a365d 0%, #2a4a7f 100%);
+      color: white;
+      text-align: center;
+      padding: 100px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('https://www.aiub.edu/Files/Uploads/Original/full_campus_view_from_stadium.jpg') no-repeat center center;
+      background-size: cover;
+      opacity: 0.15;
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+      animation: formalAnimation 2s ease-in-out infinite;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+      text-transform: uppercase;
+    }
+
+    @keyframes formalAnimation {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .hero p {
+      font-size: 1.2em;
+      margin-bottom: 30px;
+      animation: fadeInUp 1s ease-out 0.5s both;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.5;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    #features, #installation {
+      padding: 60px 20px;
+      background: white;
+    }
+
+    #features h2, #installation h2 {
+      text-align: center;
+      font-size: 2em;
+      margin-bottom: 40px;
+      color: #1a365d;
+    }
+
+    .feature-cards {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      padding: 30px;
+      width: 100%;
+      max-width: 300px;
+      transition: all 0.3s ease;
+      margin-bottom: 20px;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    }
+
+    .card h3 {
+      color: #4facfe;
+      margin-bottom: 15px;
+    }
+
+    #install {
+      background: #f8f9fa;
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    #install h2 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #1a365d;
+    }
+
+    .install-button {
+      display: inline-block;
+      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      color: white;
+      padding: 15px 40px;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      margin-top: 30px;
+      transition: all 0.3s ease;
+      animation: shake 0.5s infinite;
+    }
+
+    .install-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(79, 172, 254, 0.4);
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+    }
+
+    footer {
+      background: #1a365d;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+    }
+
+    .installation-steps {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+    }
+
+    .installation-steps h3 {
+      color: #4facfe;
+      margin-top: 30px;
+      margin-bottom: 15px;
+    }
+
+    .installation-steps ul {
+      padding-left: 25px;
+      list-style-type: none;
+    }
+
+    .installation-steps li {
+      margin-bottom: 15px;
+      position: relative;
+      padding-left: 10px;
+    }
+
+    .installation-steps li::before {
+      content: '•';
+      color: #4facfe;
+      font-weight: bold;
+      position: absolute;
+      left: -15px;
+    }
+
+    .notice {
+      background-color: #faf089;
+      color: #744210;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 30px;
+      border-left: 5px solid #ecc94b;
+      transition: background-color 0.3s ease;
+    }
+
+    .notice:hover {
+      background-color: #fefcbf;
+    }
+
+    code {
+      background-color: #edf2f7;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    .credits {
+      margin-top: 20px;
+      font-style: bold;
+    }
+
+    .credits a {
+      color: #4facfe;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .credits a:hover {
+      color: #00f2fe;
+      text-decoration: underline;
+    }
+
+    .maintenance-notice {
+      background-color: #faf089;
+      color: #ff2121;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-weight: bold;
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5em;
+      }
+
+      .hero p {
+        font-size: 1em;
+      }
+
+      .card {
+        width: 100%;
+      }
+
+      .installation-steps {
+        padding: 20px;
+      }
+
+      #features, #installation {
+        padding: 40px 10px;
+      }
+
+      .install-button {
+        padding: 10px 20px;
+        font-size: 1em;
+      }
+
+      footer {
+        font-size: 0.8em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>STAY AHEAD WITH AIUB COURSE NOTIFIER</h1>
+      <p>Effortlessly track course availability and receive instant notifications when your desired courses are open for registration. Simplify your academic journey with my intelligent notifier.</p>
+    </div>
+  </section>
+
+  <section id="features">
+    <h2>What AIUB Course Notifier Does</h2>
+    <div class="feature-cards">
+      <div class="card">
+        <h3>Monitors the Registration Page</h3>
+        <p>The extension activates on the AIUB registration page and monitors for course availability.</p>
+      </div>
+      <div class="card">
+        <h3>Automatic Course Checking</h3>
+        <p>It automatically refreshes course data and identifies available courses.</p>
+      </div>
+      <div class="card">
+        <h3>Real-time Notifications</h3>
+        <p>Receive instant alerts when new courses become available for registration.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="install">
+    <h2>Install AIUB Course Notifier</h2>
+    <p>Simplify your course registration process with AIUB Course Notifier.</p>
+    <div class="maintenance-notice">
+      I apologize for the inconvenience. The extension is currently undergoing maintenance to improve its functionality. Please check back later.
+    </div>
+    <a href="#" class="install-button" id="downloadButton">Download Extension</a>
+  </section>
+
+  <section id="installation">
+    <h2>Installation Guide</h2>
+    <div class="installation-steps">
+      <h3>Installing on Google Chrome</h3>
+      <ul>
+        <li>Open Google Chrome.</li>
+        <li>Type <code>chrome://extensions/</code> in the address bar and press Enter.</li>
+        <li>In the top right corner, toggle on "Developer mode".</li>
+        <li>Click the "Load unpacked" button that appears.</li>
+        <li>Navigate to the folder containing your extension files.</li>
+        <li>Select the folder and click "Select Folder" (on Windows) or "Open" (on Mac).</li>
+        <li>The extension should now appear in your list of extensions.</li>
+      </ul>
+
+      <h3>Installing on Microsoft Edge</h3>
+      <ul>
+        <li>Open Microsoft Edge.</li>
+        <li>Type <code>edge://extensions/</code> in the address bar and press Enter.</li>
+        <li>In the bottom left corner, toggle on "Developer mode".</li>
+        <li>Click the "Load unpacked" button that appears.</li>
+        <li>Navigate to the folder containing your extension files.</li>
+        <li>Select the folder and click "Select Folder" (on Windows) or "Open" (on Mac).</li>
+        <li>The extension should now appear in your list of extensions.</li>
+      </ul>
+
+      <h3>Verifying the Installation</h3>
+      <ul>
+        <li>You should see the extension icon in the browser toolbar.</li>
+        <li>Click on the icon to verify that it's working correctly.</li>
+        <li>Navigate to the AIUB portal (<a href="https://portal.aiub.edu/">https://portal.aiub.edu/</a>) to test the extension's functionality.</li>
+      </ul>
+
+      <h3>Troubleshooting</h3>
+      <ul>
+        <li>Ensure all files are in the correct location and have the correct names.</li>
+        <li>Check the browser's console for any error messages.</li>
+        <li>Try reloading the extension from the extensions page.</li>
+        <li>Restart your browser and try the installation process again.</li>
+      </ul>
+
+      <div class="notice">
+        <strong>Notice:</strong> As this is a developer mode extension, you may need to re-enable it each time you restart your browser, depending on your browser settings.
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="credits">
+      Developed by <a href="https://www.facebook.com/tariqulislamrahaat" target="_blank">Tariqul Islam</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('downloadButton').addEventListener('click', function(e) {
+      e.preventDefault();
+      document.querySelector('.maintenance-notice').style.display = 'block';
+    });
+  </script>
+</body>
+</html>
